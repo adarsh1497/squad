@@ -7,8 +7,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,7 +41,8 @@ public class ESPCtrl {
 	HashMap<String, ArrayList<HashMap<String, ArrayList<String>>>> upm;
 
 	User globalUser, currentUser;
-
+	
+	@PostMapping("/addUser")
 	public void add(@RequestBody String username) {
 		User user = new User(username, false, 0);
 		currentUser = user;
@@ -45,6 +50,7 @@ public class ESPCtrl {
 
 	}
 
+	@GetMapping("/getUser")
 	public User check() {
 		ArrayList<User> arr = (ArrayList<User>) userrepo.findAll();
 		for (User user : arr) {
@@ -56,7 +62,8 @@ public class ESPCtrl {
 		}
 		return globalUser;
 	}
-
+	
+	@GetMapping("/getImgMap")
 	public HashMap<String, ArrayList<String>> getPrimarySecondary(User user) {
 
 		HashMap<String, ArrayList<String>> map = null;
@@ -119,11 +126,12 @@ public class ESPCtrl {
 		return map;
 	}
 	
-
+	@PostMapping("/addimgs")
 	public void setImgs(PrimarySecondary ps) {
 		upmrepo.save(ps);
 	}
-
+	
+	@PutMapping("/updateDetails")
 	public void compare() {
 		ArrayList<PrimarySecondary> arr = (ArrayList<PrimarySecondary>) upmrepo.findAll();
 		
