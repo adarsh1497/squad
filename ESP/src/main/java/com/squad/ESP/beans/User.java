@@ -11,6 +11,7 @@ public class User {
 	private String userName;
 	private boolean status;
 	private int point;
+	
 	public User(String userName, boolean status, int point) {
 		super();
 		this.userName = userName;

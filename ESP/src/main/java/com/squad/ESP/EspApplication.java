@@ -8,6 +8,7 @@ public class EspApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EspApplication.class, args);
+		System.out.println("HI There");
 	}
 
 }
